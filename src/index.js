@@ -4,13 +4,13 @@ import './index.css';
 import 'antd/dist/antd.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import  Hello from './components/hello/index'
+
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <App/>
-    <Hello msg="你好" date={new Date()}/>
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 )
 

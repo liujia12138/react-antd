@@ -1,9 +1,9 @@
-const menu = [
+export const menuList = [
     {
         key: 'manage',  // route时url中的值
         name: '用户管理',  // 在菜单中显示的名称
         icon: 'smile',  // 图标是可选的
-        child: [
+        children: [
             {
                 key: 'entManage',
                 name: '企业用户',
@@ -15,5 +15,13 @@ const menu = [
                 icon: 'android',
             }
         ],
-    },
+    },{
+        key: 'group',
+        name: '用户组管理',
+        icon: 'company'
+    },{
+        key: 'conpamyList',
+        name: '企业综合搜索',
+        icon: 'company'
+    }
 ]

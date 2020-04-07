@@ -1,10 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-import SideBar from './components/sideBar'
+import SideBar from './components/sideBar';
+import Header from './components/header'
 import './App.css'
 
 
-const {Header, Footer, Sider, Content} = Layout
+const { Footer, Sider, Content} = Layout
 
 /**
  * App组件
@@ -15,7 +16,7 @@ class App extends React.Component {
     return <Layout className="app">
       <Sider><SideBar></SideBar></Sider>
       <Layout>
-        <Header>header</Header>
+        <Header></Header>
         <Content>content</Content>
         <Footer>footer</Footer>
       </Layout>

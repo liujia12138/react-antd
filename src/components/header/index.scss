@@ -1,5 +1,17 @@
-.header{
+.navBar{
     height: 48px;
     line-height: 48px;
     background: #fff;
+    .navBar-left{
+        float: left;
+        margin-left: 15px;
+        .collapse-icon span{
+            font-size: 22px;
+            cursor: pointer;
+        }
+    }
+    .navBar-right{
+        float: right;
+        margin-right: 15px;
+    }
 }

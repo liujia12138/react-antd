@@ -1,25 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import cx from 'classnames';
 import { menuList } from '../../menu';
-import { Menu } from 'antd';
+import { Menu, Layout } from 'antd';
 import Logo from './logo';
 import './index.scss'
+import store from '../../redux/store';
 const MenuItem = Menu.Item
 const SubMenu = Menu.SubMenu
+const { Sider } = Layout
 
-console.log(menuList, "menuList")
+
 class SideBar extends React.Component {
     state = {
-        currentKey: "1"
+        currentKey: "1",
     }
     getMenuItem(menu) {
         return (
             <MenuItem onClick={this.handleClick} key={menu.key}>
-                <span className="menuitem-title">{menu.name}</span>
+                <Link to={menu.key}><span className="menuitem-title">{menu.name}</span></Link>
             </MenuItem>
         )
     }
-    handleClick = (e)=>{
-        this.setState({
+    handleClick = (e) => {
+        return this.setState({
             currentKey: e.key
         })
     }
@@ -29,7 +33,7 @@ class SideBar extends React.Component {
             if (item.children) {
                 const childMenu = item.children.map(child => {
                     if (child.children) {
-                        return;
+                        return false;
                     } else {
                         const tmp = this.getMenuItem(child);
                         return tmp;
@@ -49,18 +53,35 @@ class SideBar extends React.Component {
             }
         })
         this.menu = menu;
-        console.log(this.menu)
+        this.setState({
+            collapse: store.getState().sideBarCollapse
+        })
     }
     render() {
-        return <div className="sidebar">
-            <Logo></Logo>
-            <Menu
-            theme="dark" mode="inline"
-            >
-            {this.menu}
+        const {
+            sideBarCollapsed
+        } = this.props
+        const classnames = cx('sidebar-left', {
+            'layout-sider-collapsed': sideBarCollapsed
+        })
 
-            </Menu>
-        </div>
+        return <Sider 
+                className={classnames} 
+                width={200} 
+                collapsedWidth={0}
+                collapsed={sideBarCollapsed}//当前收起状态
+                collapsible={true}//是否可收起
+                trigger={null}//隐藏collapsedWidth为0时出现的trigger
+                >
+            <div>
+                <Logo></Logo>
+                {sideBarCollapsed}
+                <Menu
+                    theme="dark" mode="inline"
+                >
+                    {this.menu}</Menu>
+            </div>
+        </Sider>
     }
 }
 

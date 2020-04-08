@@ -8,3 +8,33 @@
         
     }
 }
+
+// 侧边栏
+.sidebar-left {
+    background-color: #001529;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+    .layout-sider-collapsed{
+        width: 60px;
+    }
+    &.sidebar-left-sm {
+      .ant-menu {
+        &.ant-menu-inline-collapsed {
+          width: 60px;
+          > .ant-menu-submenu .ant-menu-submenu-title,.ant-menu-item {
+            padding: 0 20px !important;
+            margin: 0;
+            .anticon {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      &.sidebar-left-close {
+        .ant-menu {
+          transform: translate3d(-2000px, 0 ,0);
+        }
+      }
+    }
+}

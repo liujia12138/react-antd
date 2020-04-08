@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 // function HelloMessage(props) {
 //     return <h1>Hello React: {props.msg}</h1>
 // }

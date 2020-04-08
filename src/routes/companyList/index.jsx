@@ -1,6 +1,7 @@
 import React from 'react';
-import { Table, Input, Tag } from 'antd';
-const { Search } = Input;
+import { Table, Input, Form, Tag, Row, Col, Button } from 'antd';
+// const form = Form.useForm();
+
 class EntUser extends React.Component {
 
     render() {
@@ -40,6 +41,7 @@ class EntUser extends React.Component {
                 }
             }
         ]
+
         const data = [
             {
                 key: 1,
@@ -83,13 +85,44 @@ class EntUser extends React.Component {
                 status: "1"
             }
         ]
+
+        const getFields = () => {
+            const count = 10;
+            const children = [];
+            for (let i = 0; i < count; i++) {
+                children.push(
+                    <Col span={8} key={i}>
+                        <Form.Item
+                            name={`field-${i}`}
+                            label={`Field ${i}`}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Input something!',
+                                },
+                            ]}
+                        >
+                            <Input placeholder="placeholder" />
+                        </Form.Item>
+                    </Col>,
+                );
+            }
+            return children;
+        }
+        
+        const onFinish = values => {
+            console.log('Received values of form: ', values);
+        };
         return <div>
             <div className="searchBar">
-                <Search
-                    placeholder="搜索用户"
-                    onSearch={value => console.log(value)}
-                    style={{ width: 200 }}
-                />
+                <Form
+                    // form={form}
+                    name="advanced_search"
+                    className="ant-advanced-search-form"
+                    onFinish={onFinish}
+                >
+                    <Row gutter={24}>{getFields()}</Row>
+                </Form>
             </div>
             <Table columns={columns} dataSource={data} />
         </div>

@@ -4,8 +4,8 @@ import cx from 'classnames';
 import { menuList } from '../../menu';
 import { Menu, Layout } from 'antd';
 import Logo from './logo';
-import './index.scss'
-import store from '../../redux/store';
+import './index.scss';
+
 const MenuItem = Menu.Item
 const SubMenu = Menu.SubMenu
 const { Sider } = Layout
@@ -27,7 +27,7 @@ class SideBar extends React.Component {
             currentKey: e.key
         })
     }
-    componentWillMount() {
+    render() {
         const menu = menuList.map(item => {
             //是否有二级菜单
             if (item.children) {
@@ -52,34 +52,30 @@ class SideBar extends React.Component {
                 return tmp;
             }
         })
-        this.menu = menu;
-        this.setState({
-            collapse: store.getState().sideBarCollapse
-        })
-    }
-    render() {
+        // this.menu = menu;
         const {
             sideBarCollapsed
         } = this.props
+
         const classnames = cx('sidebar-left', {
             'layout-sider-collapsed': sideBarCollapsed
         })
 
-        return <Sider 
-                className={classnames} 
-                width={200} 
-                collapsedWidth={0}
-                collapsed={sideBarCollapsed}//当前收起状态
-                collapsible={true}//是否可收起
-                trigger={null}//隐藏collapsedWidth为0时出现的trigger
-                >
+        return <Sider
+            className={classnames}
+            width={200}
+            collapsedWidth={0}
+            collapsed={sideBarCollapsed}//当前收起状态
+            collapsible={true}//是否可收起
+            trigger={null}//隐藏collapsedWidth为0时出现的trigger
+        >
             <div>
                 <Logo></Logo>
                 {sideBarCollapsed}
                 <Menu
                     theme="dark" mode="inline"
                 >
-                    {this.menu}</Menu>
+                    {menu}</Menu>
             </div>
         </Sider>
     }

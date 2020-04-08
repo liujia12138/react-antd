@@ -33,11 +33,4 @@ const actions = {
  */
 const store = createStore(reducer, actions);
 
-console.log("initial state: ", store.getState());
-
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState(), "sideBarCollapse")
-);
-
-unsubscribe();
 export default store;

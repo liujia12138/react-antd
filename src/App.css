@@ -8,12 +8,26 @@
   pointer-events: none;
 }
 
+/* 右边主内容区 */
+main {
+  padding: 12px;
+}
+
+.main {
+  /* background: #fff; */
+}
+
+/* searchBar */
+.searchBar {
+  
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
-.ant-layout-header{
+.ant-layout-header {
   background: #304156
 }

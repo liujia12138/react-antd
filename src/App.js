@@ -5,9 +5,10 @@ import Header from './components/header'
 import './App.css'
 
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import Hello from './components/hello/index'
+import Hello from './components/hello/index';
 import EntUser from './components/user/entUser';
 import OrgUser from './components/user/orgUser';
+import CompanyList from './routes/companyList/index'
 
 const { Footer, Content } = Layout
 
@@ -37,10 +38,11 @@ class App extends React.Component {
       <Layout>
         <Header handleClickCollapse={this.handleClickCollapse}></Header>
         <Content>
-          <div>
+          <div className="main">
             <Route path="/index" component={Hello} />
             <Route path="/manage/entManage" component={EntUser} />
             <Route path="/manage/orgManage" component={OrgUser} />
+            <Route path="/companyList" component={CompanyList} />
           </div>
         </Content>
         <Footer>footer</Footer>

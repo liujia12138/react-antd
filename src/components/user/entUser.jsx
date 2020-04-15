@@ -91,7 +91,7 @@ class EntUser extends React.Component {
                     style={{ width: 200 }}
                 />
             </div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={data}/>
         </div>
     }
 }

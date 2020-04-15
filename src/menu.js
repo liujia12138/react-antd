@@ -23,5 +23,9 @@ export const menuList = [
         key: '/companyList',
         name: '企业综合搜索',
         icon: 'company'
+    },{
+        key: '/labels',
+        name: '标签管理',
+        icon: 'company'
     }
 ]

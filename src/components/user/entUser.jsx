@@ -30,8 +30,8 @@ class EntUser extends React.Component {
                 dataIndex: 'status',
                 key: 'status',
                 render: status => {
-                    let color = status == "0" ? "green" : "volcano";
-                    let text = status == "0" ? "正常" : "异常"
+                    let color = status === "0" ? "green" : "volcano";
+                    let text = status === "0" ? "正常" : "异常"
                     return (
                         <Tag color={color}>
                             {text}

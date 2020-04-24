@@ -11,6 +11,7 @@ import OrgUser from './components/user/orgUser';
 import CompanyList from './routes/companyList/index';
 import Labels from './routes/labels/index';
 import Login from './routes/login/index';
+// import BasicLayout from './layout/index'
 
 const { Footer, Content } = Layout
 
@@ -26,7 +27,7 @@ class App extends React.Component {
    * 控制侧边栏
    */
   handleClickCollapse = () => {
-   const sideBarCollapsed = !this.state.sideBarCollapsed
+    const sideBarCollapsed = !this.state.sideBarCollapsed
     this.setState({
       sideBarCollapsed
     })
@@ -35,27 +36,42 @@ class App extends React.Component {
     const {
       sideBarCollapsed
     } = this.state
+    
+    //https://react-guide.github.io/react-router-cn/docs/guides/basics/RouteConfiguration.html
+    const routeConfig = [
+      {
+        path: '/',
+        component: App,
+        indexRoute: {},
+        childRoutes: [
+
+        ]
+      }
+    ]
     return (
-    <Layout className="app">
-      <Router>
-        <Route path="/login" component={Login} />
-        <Route path='/mobil-menu'>
-        <SideBar sideBarCollapsed={sideBarCollapsed}></SideBar>
-        <Layout>
-          <Header handleClickCollapse={this.handleClickCollapse}></Header>
-          <Content>
-              <Route path="/index" component={Hello} />
-              <Route path="/manage/entManage" component={EntUser} />
-              <Route path="/manage/orgManage" component={OrgUser} />
-              <Route path="/companyList" component={CompanyList} />
-              <Route path="/labels" component={Labels}/>
-          </Content>
-          <Footer>footer</Footer>
-        </Layout>
-        </Route>
-        
-    </Router>
-    </Layout>
+      <Layout className="app">
+        <Router>
+          {/* <Route path="/"> */}
+            <Route path="/login" component={Login} />
+            <Route path='/'>
+                {/* <SideBar sideBarCollapsed={sideBarCollapsed}></SideBar>
+                <Layout>
+                  <Header handleClickCollapse={this.handleClickCollapse}></Header>
+                  <Content>
+                    <Route path="" component={Hello} /> */}
+                    <Route path="manage/entManage" component={EntUser} />
+                    <Route path="/mobil-menu/manage/orgManage" component={OrgUser} />
+                    <Route path="/mobil-menu/companyList" component={CompanyList} />
+                    <Route path="/mobil-menu/labels" component={Labels} />
+                  {/* </Content>
+                  <Footer>footer</Footer>
+                </Layout> */}
+            {/* </Route> */}
+          </Route>
+
+
+        </Router>
+      </Layout>
     )
   }
 }

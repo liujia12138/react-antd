@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie';
 
-const TokenKey = 'user-token';
+const TokenKey = 'auth-token';
 
 export function setToken(token){
     return Cookie.set(TokenKey, token, { expires: 7 })

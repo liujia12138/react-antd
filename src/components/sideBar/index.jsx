@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import cx from 'classnames';
 import { menuList } from '../../menu';
 import { Menu, Layout } from 'antd';
@@ -18,7 +18,8 @@ class SideBar extends React.Component {
     getMenuItem(menu) {
         return (
             <MenuItem onClick={this.handleClick} key={menu.key}>
-                <Link to={menu.key}><span className="menuitem-title">{menu.name}</span></Link>
+                {/* NavLink :可以根据当前页面路由设置选中的link的样式 */}
+                <NavLink activeClassName="active-link" to={menu.key}><span className="menuitem-title">{menu.name}</span></NavLink>
             </MenuItem>
         )
     }

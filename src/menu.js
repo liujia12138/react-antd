@@ -5,26 +5,26 @@ export const menuList = [
         icon: 'smile',  // 图标是可选的
         children: [
             {
-                key: '/mobil-menu/manage/entManage',
+                key: '/manage/entManage',
                 name: '企业用户',
                 icon: 'play-circle',   // 二级三级菜单也可以带图标
             },
             {
-                key: '/mobil-menu/manage/orgManage',
+                key: '/manage/orgManage',
                 name: '机构用户',
                 icon: 'android',
             }
         ],
     },{
-        key: '/mobil-menu/group',
+        key: '/group',
         name: '用户组管理',
         icon: 'company'
     },{
-        key: '/mobil-menu/companyList',
+        key: '/companyList',
         name: '企业综合搜索',
         icon: 'company'
     },{
-        key: '/mobil-menu/labels',
+        key: '/labels',
         name: '标签管理',
         icon: 'company'
     }

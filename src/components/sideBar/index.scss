@@ -15,6 +15,9 @@
     user-select: none;
     position: relative;
     z-index: 2;
+    a.active-link{
+      color: rgb(250, 218, 131)
+    }
     .layout-sider-collapsed{
         width: 60px;
     }
@@ -37,4 +40,11 @@
         }
       }
     }
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-sub .ant-menu-item-selected{
+  background-color: #000c17;
+}
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected{
+  background-color: #001529;
 }

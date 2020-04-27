@@ -7,8 +7,8 @@ import React from 'react';
 
 // ReactDOM.render(ele, document.getElementById('example'))
 
-export default class Hello extends React.Component{
-    constructor(props){
+export default class Hello extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             date: new Date()
@@ -16,19 +16,7 @@ export default class Hello extends React.Component{
     }
     //生命周期
     // 组件挂载到dom之后,开启计时器，更新state
-    componentDidMount(){
-        this.timer = setInterval(() => this.tick(), 1000)
-    }
-    //组件卸载，清除定时器
-    componentWillUnmount(){
-        clearInterval(this.timer)
-    }
-    tick(){
-        this.setState({
-            date: new Date()
-        })
-    }
-    render(){
-    return <h1>Hello React: {this.props.msg} + {this.state.date.toLocaleTimeString()}</h1>
+    render() {
+        return <h1>react-antd Admin</h1>
     }
 }

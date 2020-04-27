@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import './App.css';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import Hello from './components/hello/index';
+import Dashboard from './routes/dashboard/index';
 import EntUser from './components/user/entUser';
 import OrgUser from './components/user/orgUser';
 import CompanyList from './routes/companyList/index';
@@ -22,19 +22,8 @@ class App extends React.Component {
     const routes = [
       {
         path: '/index',
-        component: Hello,
+        component: Dashboard,
         auth: true,
-        // children: [
-        //   {
-        //     path: '/labels',
-        //     component: Labels,
-        //     auth: true,
-        //     // },{
-        //     //   path: '/index',
-        //     //   component: Hello,
-        //     //   auth: true,
-        //   }
-        // ]
       }, {
         path: '/labels',
         component: Labels,
@@ -68,16 +57,16 @@ class App extends React.Component {
       }} />
     }
     const routeList = routes.map(item => {
-      if (item.children) {
-        const childRoute = item.children.map(child => {
-          child.path = item.path + child.path;
-          const tmp = routeItem(child);
-          return tmp;
-        })
-        return <item.component key={item.path}>
-          {childRoute}
-        </item.component>
-      }
+      // if (item.children) {
+      //   const childRoute = item.children.map(child => {
+      //     child.path = item.path + child.path;
+      //     const tmp = routeItem(child);
+      //     return tmp;
+      //   })
+      //   return <item.component key={item.path}>
+      //     {childRoute}
+      //   </item.component>
+      // }
       return routeItem(item)
     })
 
@@ -87,12 +76,12 @@ class App extends React.Component {
           {/* Switch的作用是从上到下匹配route，匹配成功后，就不再往下找了 */}
           <Switch>
             <Route exact path="/login" component={Login} />
-            {/* <Route path="/" > */}
-            <BasicLayout>
-              <Redirect from="/" to="/index" />
-              {routeList}
-            </BasicLayout>
-            {/* </Route> */}
+            <Redirect exact from="/" to="/index" />
+            <Route path="/" >
+              <BasicLayout>
+                {routeList}
+              </BasicLayout>
+            </Route>
           </Switch>
 
         </Router>

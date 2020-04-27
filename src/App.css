@@ -18,8 +18,17 @@ main {
 }
 
 /* searchBar */
-.searchBar {
-  
+.searchBar {}
+
+.tool-bar {
+  background: #fff;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 8px;
+  padding: 0 12px;
+}
+.tool-bar .tool-btn{
+  float: right;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -6,3 +6,11 @@ export function mealLabelList(){
         method: 'get'
     })
 }
+
+export function mealLabelAdd(data){
+    return request({
+        url: '/mealLables/add',
+        method: 'post',
+        data
+    })
+}

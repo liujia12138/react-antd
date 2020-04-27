@@ -1,6 +1,53 @@
 import React from 'react';
-import { Table } from 'antd';
-import { mealLabelList } from '../../api/labels'
+import { Table, Button, Modal, Form, Input } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { mealLabelList, mealLabelAdd } from '../../api/labels'
+
+const AddForm = (props) => {
+    const { visible, onHandleVisibleChange, confirmLoading, onHandleCancel } = props
+    const [form] = Form.useForm();
+    const initialValues = {
+        name: "name",
+        content: "123"
+    }
+   
+    const handleConfirmAdd = () => {
+        console.log(confirmLoading, initialValues, form, "confirmLoading");
+        // mealLabelAdd
+        form.validateFields().then(value => {
+            console.log(value, 'value')
+        })
+    }
+    return (
+        <Modal
+            title="添加标签"
+            okText="确认"
+            cancelText="取消"
+            visible={visible}
+            onCancel={onHandleCancel}
+            onOk={handleConfirmAdd}
+            confirmLoading={confirmLoading}
+        >
+            <Form form={form} name="add-form" initialValues={initialValues}>
+                <Form.Item
+                    label="标签名称"
+                    name="name"
+                    rules={[{ required: true, message: "标签名称不能为空" }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="标签内容"
+                    name="content"
+                    rules={[{ required: true, message: "标签内容不能为空" }]}
+                >
+                    <Input />
+                </Form.Item>
+            </Form>
+
+        </Modal>
+    )
+}
 
 class Labels extends React.Component {
 
@@ -8,7 +55,8 @@ class Labels extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            visible: false,
+            confirmLoading: false,//添加弹框确认按钮loading
         }
         mealLabelList().then(res => {
             if (res.code === 200) {
@@ -38,6 +86,24 @@ class Labels extends React.Component {
     componentWillUnmount() {//组件被卸载之前
 
     }
+
+    //打开add modal
+    handleShowAdd = () => {
+        this.setState({
+            visible: true
+        })
+    }
+    handleCancel = () => {
+        this.setState({
+            visible: false
+        })
+    }
+    handleVisibleChange = () => {
+        this.setState({
+            confirmLoading: !this.state.confirmLoading
+        })
+    }
+
     render() {
         const columns = [
             {
@@ -62,12 +128,23 @@ class Labels extends React.Component {
                 key: 'updateTime'
             }
         ]
+        const { visible, confirmLoading } = this.state;
+
+
         return (
             <div>
+                <div className="tool-bar">
+                    <div className="tool-btn">
+                        <Button type="primary" size="small" onClick={this.handleShowAdd}><PlusCircleOutlined />添加标签</Button>
+                    </div>
+                </div>
                 <Table columns={columns} dataSource={this.state.labelList} rowKey='id' />
+                {/* 添加标签弹框 */}
+                <AddForm visible={visible} confirmLoading={confirmLoading} onHandleVisibleChange={this.handleVisibleChange} onHandleCancel={this.handleCancel} />
             </div>
         )
     }
 }
 
-export default Labels;
+
+export default Labels

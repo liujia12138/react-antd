@@ -4,18 +4,26 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import { mealLabelList, mealLabelAdd } from '../../api/labels'
 
 const AddForm = (props) => {
-    const { visible, onHandleVisibleChange, confirmLoading, onHandleCancel } = props
+    const { visible, onHandleVisibleChange, onHandleCancel, onConfirmLoadingChange } = props;
+    let confirmLoading = props.confirmLoading
     const [form] = Form.useForm();
     const initialValues = {
         name: "name",
         content: "123"
     }
-   
+
     const handleConfirmAdd = () => {
         console.log(confirmLoading, initialValues, form, "confirmLoading");
         // mealLabelAdd
         form.validateFields().then(value => {
-            console.log(value, 'value')
+            console.log(value, 'value');
+            onConfirmLoadingChange()
+            mealLabelAdd(value).then(res => {
+                console.log(res, "res")
+                if (res.code === 200) {
+                    onConfirmLoadingChange()
+                }
+            })
         })
     }
     return (
@@ -58,14 +66,7 @@ class Labels extends React.Component {
             visible: false,
             confirmLoading: false,//添加弹框确认按钮loading
         }
-        mealLabelList().then(res => {
-            if (res.code === 200) {
-                let labelList = res.data.list;
-                this.setState({
-                    labelList: labelList
-                })
-            }
-        })
+        this.getList();
     }
 
     //react16中，生命周期
@@ -87,6 +88,17 @@ class Labels extends React.Component {
 
     }
 
+    getList = () => {
+        mealLabelList().then(res => {
+            if (res.code === 200) {
+                let labelList = res.data.list;
+                this.setState({
+                    labelList: labelList
+                })
+            }
+        })
+    }
+
     //打开add modal
     handleShowAdd = () => {
         this.setState({
@@ -98,7 +110,14 @@ class Labels extends React.Component {
             visible: false
         })
     }
+    //切换弹框显示/隐藏状态
     handleVisibleChange = () => {
+        this.setState({
+            visible: !this.state.visible
+        })
+    }
+    // 切换确认按钮loading状态
+    confirmLoadingChange = () => {
         this.setState({
             confirmLoading: !this.state.confirmLoading
         })
@@ -140,7 +159,7 @@ class Labels extends React.Component {
                 </div>
                 <Table columns={columns} dataSource={this.state.labelList} rowKey='id' />
                 {/* 添加标签弹框 */}
-                <AddForm visible={visible} confirmLoading={confirmLoading} onHandleVisibleChange={this.handleVisibleChange} onHandleCancel={this.handleCancel} />
+                <AddForm visible={visible} confirmLoading={confirmLoading} onConfirmLoadingChange={this.confirmLoadingChange} onHandleVisibleChange={this.handleVisibleChange} onHandleCancel={this.handleCancel} />
             </div>
         )
     }

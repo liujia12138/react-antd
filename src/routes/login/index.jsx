@@ -18,7 +18,7 @@ class Login extends React.Component {
             if (values) {
                 login(values).then(res => {
                     setToken(res.data.token);
-                    this.props.history.push("/mobil-menu/labels")
+                    this.props.history.push("/labels")
                 })
             }
 

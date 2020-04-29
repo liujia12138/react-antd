@@ -24,15 +24,21 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
     response => {
-        console.log(response, 'res')
         const res = response.data;
-        if(res.code !== 200){
+        console.log(response,"response11")
+        if(response.status !== 200){
+            // message.error(error);
             return Promise.reject(new Error(res.message || 'Error'))
         }
         return res
     }, error => {
-        message.error(error);
-        return Promise.reject(error)
+        //接口返回的data在error.response.data里
+        if (error.response) {
+            message.error(error.response.data.message);
+        } else if (error.request) {
+        } else {
+        }
+        return Promise.reject(error.response.data);
     })
 
 export default service;

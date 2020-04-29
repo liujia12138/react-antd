@@ -1,15 +1,15 @@
 import React from 'react';
 import { Table, Button, Modal, Form, Input, message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { mealLabelList, mealLabelAdd } from '../../api/labels'
+import { mealLabelList, mealLabelAdd } from '../../api/labels';
 
 function AddForm(props) {
-    const { visible, onHandleVisibleChange, onHandleCancel, onConfirmLoadingChange } = props;
+    const { visible, onHandleVisibleChange, onHandleCancel, onConfirmLoadingChange, getList } = props;
     let confirmLoading = props.confirmLoading
     const [form] = Form.useForm();
     const initialValues = {
-        name: "name",
-        content: "123"
+        name: "",
+        content: ""
     }
 
     const handleConfirmAdd = () => {
@@ -17,14 +17,14 @@ function AddForm(props) {
         onConfirmLoadingChange()
         form.validateFields().then(value => {
             mealLabelAdd(value).then(res => {
-                console.log(res, "res")
                 if (res.code === 200) {
-                    onConfirmLoadingChange()
-                    onHandleVisibleChange()
+                    onConfirmLoadingChange();
+                    onHandleVisibleChange();//隐藏弹框
+                    getList();//更新列表
                     message.success("保存成功！")
-                }else{
-                    message.error(res.message)
                 }
+            }).catch(error => {
+                onConfirmLoadingChange();
             })
         })
     }
@@ -58,6 +58,8 @@ function AddForm(props) {
         </Modal>
     )
 }
+
+
 
 class Labels extends React.Component {
 
@@ -151,7 +153,6 @@ class Labels extends React.Component {
         ]
         const { visible, confirmLoading } = this.state;
 
-
         return (
             <div>
                 <div className="tool-bar">
@@ -161,7 +162,7 @@ class Labels extends React.Component {
                 </div>
                 <Table columns={columns} dataSource={this.state.labelList} rowKey='id' />
                 {/* 添加标签弹框 */}
-                <AddForm visible={visible} confirmLoading={confirmLoading} onConfirmLoadingChange={this.confirmLoadingChange} onHandleVisibleChange={this.handleVisibleChange} onHandleCancel={this.handleCancel} />
+                <AddForm visible={visible} getList={this.getList} confirmLoading={confirmLoading} onConfirmLoadingChange={this.confirmLoadingChange} onHandleVisibleChange={this.handleVisibleChange} onHandleCancel={this.handleCancel} />
             </div>
         )
     }

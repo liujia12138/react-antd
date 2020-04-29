@@ -1,9 +1,9 @@
 import React from 'react';
-import { Table, Button, Modal, Form, Input } from 'antd';
+import { Table, Button, Modal, Form, Input, message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { mealLabelList, mealLabelAdd } from '../../api/labels'
 
-const AddForm = (props) => {
+function AddForm(props) {
     const { visible, onHandleVisibleChange, onHandleCancel, onConfirmLoadingChange } = props;
     let confirmLoading = props.confirmLoading
     const [form] = Form.useForm();
@@ -13,15 +13,17 @@ const AddForm = (props) => {
     }
 
     const handleConfirmAdd = () => {
-        console.log(confirmLoading, initialValues, form, "confirmLoading");
         // mealLabelAdd
+        onConfirmLoadingChange()
         form.validateFields().then(value => {
-            console.log(value, 'value');
-            onConfirmLoadingChange()
             mealLabelAdd(value).then(res => {
                 console.log(res, "res")
                 if (res.code === 200) {
                     onConfirmLoadingChange()
+                    onHandleVisibleChange()
+                    message.success("保存成功！")
+                }else{
+                    message.error(res.message)
                 }
             })
         })
